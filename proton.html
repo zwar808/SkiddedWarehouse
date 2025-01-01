@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skidded Warehouse</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --button-color: #1163ff;
+      --button-hover-color: #6c18ff;
+      --tooltip-color: #fff;
+      --tooltip-text-color: #111;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    h1 {
+      margin-bottom: 0.5em;
+      font-size: 2em;
+    }
+
+    p {
+      margin-bottom: 1.5em;
+      font-size: 1.2em;
+    }
+
+    .button {
+      --width: 150px;
+      --height: 45px;
+      --tooltip-height: 35px;
+      --tooltip-width: 120px;
+      --gap-between-tooltip-to-button: 18px;
+
+      width: var(--width);
+      height: var(--height);
+      background: var(--button-color);
+      position: relative;
+      text-align: center;
+      border-radius: 0.45em;
+      font-family: "Arial";
+      transition: background 0.3s;
+      display: inline-block;
+      margin-bottom: 2em;
+    }
+
+    .button a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .button::before {
+      position: absolute;
+      content: attr(data-tooltip);
+      width: var(--tooltip-width);
+      height: var(--tooltip-height);
+      background-color: var(--tooltip-color);
+      font-size: 0.9rem;
+      color: var(--tooltip-text-color);
+      border-radius: 0.25em;
+      line-height: var(--tooltip-height);
+      bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
+      left: calc(50% - var(--tooltip-width) / 2);
+      text-align: center;
+    }
+
+    .button::after {
+      position: absolute;
+      content: '';
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-top-color: var(--tooltip-color);
+      left: calc(50% - 10px);
+      bottom: calc(100% + var(--gap-between-tooltip-to-button) - 10px);
+    }
+
+    .button::after,
+    .button::before {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s;
+    }
+
+    .text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button-wrapper,
+    .text,
+    .icon {
+      overflow: hidden;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      color: #fff;
+    }
+
+    .text {
+      top: 0;
+    }
+
+    .text,
+    .icon {
+      transition: top 0.5s;
+    }
+
+    .icon {
+      color: #fff;
+      top: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .button:hover {
+      background: var(--button-hover-color);
+    }
+
+    .button:hover .text {
+      top: -100%;
+    }
+
+    .button:hover .icon {
+      top: 0;
+    }
+
+    .button:hover:before,
+    .button:hover:after {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .button:hover:after {
+      bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 20px);
+    }
+
+    .button:hover:before {
+      bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
+    }
+
+    .home-button {
+      margin-top: 2em;
+    }
+
+    .home-button a {
+      display: inline-block;
+      padding: 0.5em 1.5em;
+      font-size: 1em;
+      text-decoration: none;
+      color: #fff;
+      background-color: #6c18ff;
+      border-radius: 0.45em;
+      transition: background-color 0.3s;
+    }
+
+    .home-button a:hover {
+      background-color: #1163ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Skidded Warehouse</h1>
+    <p>Download the Proton product by clicking the button below:</p>
+    <div class="button" data-tooltip="Size: 20Mb">
+      <a href="https://download1078.mediafire.com/922p7a9henpgF6EWWk67MDTzxi6ze1hcx7fTuchEQrzR2xGczwImmxbYtZ9y_mY5DXfIlXuZuVZjw1c6MH235us32_Tf_AqRMo42RzkFygrZmiphRdTb5Wz9lPjKc0i7k2M0A2BXyuamQs2jFrsx44ggI86Lt51IPMd_LRdPiw/9dzx1q1pxue6zsj/Proton2.0.zip" download>
+        <div class="button-wrapper">
+          <div class="text">Download</div>
+          <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path>
+            </svg>
+          </span>
+        </div>
+      </a>
+    </div>
+    <div class="home-button">
+      <a href="index.html">Home</a>
+    </div>
+  </div>
+</body>
+</html>

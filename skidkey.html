@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skidded Warehouse - Key System</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --input-bg: #1e1e1e;
+      --button-color: #1163ff;
+      --button-hover-color: #6c18ff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 400px;
+      padding: 2em;
+      background-color: var(--input-bg);
+      border-radius: 0.5em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      margin-bottom: 1em;
+      font-size: 1.8em;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.8em;
+      margin-bottom: 1em;
+      font-size: 1em;
+      border: none;
+      border-radius: 0.3em;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    input::placeholder {
+      color: #888;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1.1em;
+      color: #fff;
+      background-color: var(--button-color);
+      border: none;
+      border-radius: 0.3em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: var(--button-hover-color);
+    }
+
+    .message {
+      margin-top: 1em;
+      font-size: 1em;
+    }
+
+    .error {
+      color: #ff5c5c;
+    }
+
+    .success {
+      color: #5cff5c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Key System</h1>
+    <input type="text" id="keyInput" placeholder="Enter your key" />
+    <button id="submitKey">Submit Key</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    document.getElementById('submitKey').addEventListener('click', async () => {
+      const key = document.getElementById('keyInput').value;
+      const messageDiv = document.getElementById('message');
+
+      if (!key) {
+        messageDiv.textContent = 'Please enter a key.';
+        messageDiv.className = 'message error';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://127.0.0.1:5000/verify-key', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ key }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          messageDiv.textContent = data.message;
+          messageDiv.className = 'message success';
+        } else {
+          messageDiv.textContent = data.message;
+          messageDiv.className = 'message error';
+        }
+      } catch (error) {
+        messageDiv.textContent = 'An error occurred. Please try again.';
+        messageDiv.className = 'message error';
+      }
+    });
+  </script>
+</body>
+</html>
